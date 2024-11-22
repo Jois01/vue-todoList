@@ -12,7 +12,11 @@
         :key="index"
       >
         <div class="content flex m-3 gap-8">
-          <input class="checkbox accent-green-700" type="checkbox" v-model="todo.isDone" :disabled="todo.isPending" 
+          <input
+            class="checkbox accent-green-700"
+            type="checkbox"
+            v-model="todo.isDone"
+            :disabled="todo.isPending"
           />
           <div class="todo__content">{{ todo.todo }}</div>
         </div>
@@ -22,9 +26,11 @@
         <!-- jika tombol pending di klik, maka border akan berwarna kuning -->
         <div class="status">
           <button
-            class=" disabled:cursor-not-allowed pending py-2 px-2 m-2 bg-yellow-300 rounded-md hover:bg-yellow-400"
+            class="pending py-2 px-2 m-2 bg-yellow-300 rounded-md hover:bg-yellow-400"
             @click.prevent="todoPending(todo)"
-            :disabled="todo.isDone" 
+            :class="{
+              hidden: todo.isDone,
+            }"
           >
             Pending
           </button>
