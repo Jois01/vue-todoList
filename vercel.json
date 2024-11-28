@@ -4,10 +4,6 @@
     {
       "src": "index.html",
       "use": "@vercel/node"
-    },
-    {
-      "src": "index.html",
-      "dest": "index.html"
     }
   ]
 }
