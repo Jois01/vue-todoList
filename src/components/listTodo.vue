@@ -8,8 +8,8 @@
           'border-green-500 bg-green-300': todo.isDone,
           'border-yellow-500 bg-yellow-100': todo.isPending,
         }"
-        v-for="(todo, index) in todoList"
-        :key="index"
+        v-for="todo in todos"
+        :key="todo.id"
       >
         <div class="content flex m-3 gap-8">
           <input
@@ -49,7 +49,7 @@
           </button>
           <button
             class="hapus md:py-2 md:px-2 p-1 m-2 bg-red-500 rounded-md hover:bg-red-600"
-            @click.prevent="deleteTodo(todo)"
+            @click="deleteTodo(todo)"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -68,31 +68,36 @@
           </button>
         </div>
       </div>
-      <form action="#">
+      <form action="#" @submit.prevent="addTodo">
         <input
           class="todo border border-black rounded-md py-2 px-8 m-3"
           type="text"
           v-model="newTodo"
           placeholder="Enter a new todo"
         />
-        <button @click.prevent="addTodo" class="py-2 px-2 m-2 bg-blue-500 rounded-md">Enter</button>
+        <button class="py-2 px-2 m-2 bg-blue-500 rounded-md">Enter</button>
       </form>
     </div>
   </section>
 </template>
 <script>
+let id = 0
 export default {
   data() {
     return {
       newTodo: '',
-      todoList: [
+      todos: [
         {
-          todo: 'Belajar Vue',
-          status: 'pendding',
+          id: id++,
+          todo: 'Learn Vue',
         },
         {
+          id: id++,
           todo: 'Belajar javascript',
-          status: 'pendding',
+        },
+        {
+          id: id++,
+          todo: 'Belajar HTML',
         },
       ],
     }
@@ -100,15 +105,15 @@ export default {
   methods: {
     addTodo() {
       if (this.newTodo.trim() !== '') {
-        this.todoList.push({
+        this.todos.push({
+          id: id++,
           todo: this.newTodo,
         })
-        this.newTodo = ''
       }
+      this.newTodo = ''
     },
     deleteTodo(todo) {
-      const index = this.todoList.indexOf(todo)
-      this.todoList.splice(index, 1)
+      this.todos = this.todos.filter((t) => t !== todo)
     },
     doneTodo(todo) {
       todo.isDone = !todo.isDone
